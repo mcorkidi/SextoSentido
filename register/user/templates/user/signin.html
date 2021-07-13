@@ -1,0 +1,43 @@
+{% extends "sextosentido/base.html" %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <div class="card-title">
+                        Register
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                     
+                        {% for field in form %}
+
+                            <div class="form-group">
+                                {% if field.name == "username" %} 
+                                Email
+                                {% else %}
+                                {{field.label}}
+                                {% endif %}
+                                <br>
+                                {{field}}
+                            </div>
+                        {% endfor %}
+                        <br>
+                        <button class="btn-info" type="submit">SignUp</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
