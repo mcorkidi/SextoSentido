@@ -1,6 +1,15 @@
 {% extends "sextosentido/base.html" %}
 {% block body %} 
-<h1>This is main registration service</h1>
+
+{% load static %}
+<div class="pt-5"></div>
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <img src="{% static '/sextosentido/images/front.jpeg' %}" class="img-fluid">
+        </div>
+    </div>
+</div>
 
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0" nonce="mchNiWPh"></script>

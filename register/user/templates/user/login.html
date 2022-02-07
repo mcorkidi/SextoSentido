@@ -1,14 +1,20 @@
 {% extends 'sextosentido/base.html' %}
-
 {% block body %}
-
+{% load static %}
+<div class="pt-5"></div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 offset-md-4">
+        <div class="col-6"> 
+            <img src="{% static '/sextosentido/images/loginImg.jpeg' %}" alt="IMG" width="80%" height="80%" padding-left="10" padding-top="10"> 
+        </div>    
+
+        <div class="col-6">
             <div class="card">
-                <div class="card-header bg-info text-white">
+                <div class="card-header text-white" style="background-color: rgb(177, 142, 142)">
                     <div class="card-title">
-                        Login
+    
+                      <h4> Log In </h4>
+                    
                     </div>
                 </div>
                 <div class="card-body">
@@ -19,8 +25,10 @@
                                 {{field.name}}
                                 {{field}}
                             </div>
+                            <br>
                         {% endfor %}
-                        <button class="btn-info" type="submit">Login</button>
+                        <br>
+                        <button class="btn btn-secondary" type="submit">Login</button>
                     </form>
                 </div>
             </div>
@@ -28,5 +36,6 @@
     </div>
 
 </div>
+
 
 {% endblock %}

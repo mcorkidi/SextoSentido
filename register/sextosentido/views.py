@@ -1,19 +1,50 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Item, Consumer
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from datetime import datetime
+
+def ipInfo(addr=''):
+    from urllib.request import urlopen
+    from json import load
+    if addr == '':
+        url = 'https://ipinfo.io/json'
+    else:
+        url = 'https://ipinfo.io/' + addr + '/json'
+    res = urlopen(url)
+    #response from url(if res==None then check connection)
+    data = load(res)
+    #will load the json response into data
+    for attr in data.keys():
+        #will print the data line by line
+        print(attr,' '*13+'\t->\t',data[attr])
+    return data
+
 
 def index(request):
     return render(request, 'index.html')
 
 def register(request, sku):
     #register with sku in url
+    
+    def get_client_ip(request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+    ip = get_client_ip(request)
+    print(ip)
+    ipCall = ipInfo('190.34.172.98')
+    city = ipCall['city']
 
     items = Item.objects.all()
     
     if request.method == 'POST':
        
         print(request.POST)
+        print(ipCall)
         registeredSku = request.POST.get('inputSku',"")
         email = request.POST.get('email',"")
         username = email 
@@ -21,10 +52,10 @@ def register(request, sku):
         password = request.POST.get('inputPassword',"")
         first_name = request.POST.get('first_name',"")
         last_name = request.POST.get('last_name',"")
-        country = request.POST.get('country',"country")
+        country = ipCall['country']
         city = request.POST.get('city', "city")
-        where = request.POST.get('where', 'where')
-        when = request.POST.get('when', 'when')
+        where = ipCall['region']
+        when = datetime.now()
         telephone = request.POST.get('telephone', '')
         getInfo = request.POST.get('getInfo', 'Off')
         
@@ -51,10 +82,16 @@ def register(request, sku):
         newConsumer.save()
 
         #inform user everything saved ok and direct to profile to view registered products
+        return redirect('profile')
 
-        
 
-    return render(request, 'sextosentido/registration.html', {'sku': sku})
+    context = {'sku': sku, 'city': city}  
+
+    return render(request, 'sextosentido/registration.html', context)
+
+def contact(request):
+
+    return render(request, 'sextosentido/contact.html')
 
 
 

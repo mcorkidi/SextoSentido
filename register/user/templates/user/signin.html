@@ -1,23 +1,23 @@
 {% extends "sextosentido/base.html" %}
-
-
 {% block body %}
-
+{% load static %}
+<div class="pt-5"></div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 offset-md-4">
+        <div class="col-6"> 
+                <img src="{% static '/sextosentido/images/sideReg.jpeg' %}" alt="IMG" width="80%" height="80%" padding-left="10" padding-top="10"> 
+        </div>    
+        <div class="col-6">
             <div class="card">
-                <div class="card-header bg-info text-white">
+                <div class="card-header text-white" style="background-color: rgb(177, 142, 142)">
                     <div class="card-title">
-                        Register
+                       <h4>Register</h4> 
                     </div>
                 </div>
                 <div class="card-body">
                     <form method="POST">
-                        {% csrf_token %}
-                     
+                        {% csrf_token %}                    
                         {% for field in form %}
-
                             <div class="form-group">
                                 {% if field.name == "username" %} 
                                 Email
@@ -29,9 +29,8 @@
                             </div>
                         {% endfor %}
                         <br>
-                        <button class="btn-info" type="submit">SignUp</button>
-                    </form>
-                    
+                        <button class="btn btn-secondary" type="submit">SignUp</button>
+                    </form>                   
                 </div>
             </div>
         </div>
