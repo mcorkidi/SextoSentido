@@ -56,4 +56,7 @@ urlpatterns = [
     path('logout/', authentication_views.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
     path('', views.index, name='index'),
     path('contact/', views.contact, name='contact'),
+    path('rewards/', views.rewards, name= 'rewards'),
+    path('doc', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
 ]
